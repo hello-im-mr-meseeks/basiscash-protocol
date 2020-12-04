@@ -5,6 +5,7 @@ const Cash = artifacts.require('Cash');
 const Share = artifacts.require('Share');
 const Oracle = artifacts.require('Oracle');
 const MockDai = artifacts.require('MockDai');
+const IERC20 = artifacts.require('IERC20');
 
 const DAIBSCLPToken_BSSPool = artifacts.require('DAIBSCLPTokenSharePool');
 const DAIBSSLPToken_BSSPool = artifacts.require('DAIBSSLPTokenSharePool');

@@ -1,7 +1,7 @@
 const Artifactor = require('@truffle/artifactor');
 const artifactor = new Artifactor(`${__dirname}/../build/contracts`);
 
-const Migrations = artifacts.require('Migrations')
+const Migrations = artifacts.require('Migrations');
 
 const InitialArtifacts = {
   UniswapV2Factory: require('@uniswap/v2-core/build/UniswapV2Factory.json'),
@@ -10,12 +10,15 @@ const InitialArtifacts = {
 };
 
 module.exports = async function (deployer) {
-  for await ([contractName, legacyArtifact] of Object.entries(InitialArtifacts)) {
+  console.log(deployer);
+  for await ([contractName, legacyArtifact] of Object.entries(
+    InitialArtifacts
+  )) {
     await artifactor.save({
       contractName,
       ...legacyArtifact,
     });
   }
 
-  await deployer.deploy(Migrations)
-}
+  await deployer.deploy(Migrations);
+};
