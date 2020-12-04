@@ -10,7 +10,7 @@ pragma solidity ^0.6.0;
 /___/ \_, //_//_/\__//_//_/\__/ \__//_/ /_\_\
      /___/
 
-* Synthetix: BASISCASHRewards.sol
+* Synthetix: BSSISCASHRewards.sol
 *
 * Docs: https://docs.synthetix.io/
 *
@@ -62,11 +62,11 @@ import '@openzeppelin/contracts/token/ERC20/SafeERC20.sol';
 
 import '../interfaces/IRewardDistributionRecipient.sol';
 
-contract SUSDWrapper {
+contract DAIWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public SUSD;
+    IERC20 public dai;
 
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
@@ -82,17 +82,17 @@ contract SUSDWrapper {
     function stake(uint256 amount) public virtual {
         _totalSupply = _totalSupply.add(amount);
         _balances[msg.sender] = _balances[msg.sender].add(amount);
-        SUSD.safeTransferFrom(msg.sender, address(this), amount);
+        dai.safeTransferFrom(msg.sender, address(this), amount);
     }
 
     function withdraw(uint256 amount) public virtual {
         _totalSupply = _totalSupply.sub(amount);
         _balances[msg.sender] = _balances[msg.sender].sub(amount);
-        SUSD.safeTransfer(msg.sender, amount);
+        dai.safeTransfer(msg.sender, amount);
     }
 }
 
-contract BACSUSDPool is SUSDWrapper, IRewardDistributionRecipient {
+contract BSCDAIPool is DAIWrapper, IRewardDistributionRecipient {
     IERC20 public basisCash;
     uint256 public DURATION = 5 days;
 
@@ -112,16 +112,16 @@ contract BACSUSDPool is SUSDWrapper, IRewardDistributionRecipient {
 
     constructor(
         address basisCash_,
-        address susd_,
+        address dai_,
         uint256 starttime_
     ) public {
         basisCash = IERC20(basisCash_);
-        SUSD = IERC20(susd_);
+        dai = IERC20(dai_);
         starttime = starttime_;
     }
 
     modifier checkStart() {
-        require(block.timestamp >= starttime, 'BACSUSDPool: not start');
+        require(block.timestamp >= starttime, 'BSCDAIPool: not start');
         _;
     }
 
@@ -168,11 +168,11 @@ contract BACSUSDPool is SUSDWrapper, IRewardDistributionRecipient {
         updateReward(msg.sender)
         checkStart
     {
-        require(amount > 0, 'BACSUSDPool: Cannot stake 0');
+        require(amount > 0, 'BSCDAIPool: Cannot stake 0');
         uint256 newDeposit = deposits[msg.sender].add(amount);
         require(
             newDeposit <= 20000e18,
-            'BACSUSDPool: deposit amount exceeds maximum 20000'
+            'BSCDAIPool: deposit amount exceeds maximum 20000'
         );
         deposits[msg.sender] = newDeposit;
         super.stake(amount);
@@ -185,7 +185,7 @@ contract BACSUSDPool is SUSDWrapper, IRewardDistributionRecipient {
         updateReward(msg.sender)
         checkStart
     {
-        require(amount > 0, 'BACSUSDPool: Cannot withdraw 0');
+        require(amount > 0, 'BSCDAIPool: Cannot withdraw 0');
         deposits[msg.sender] = deposits[msg.sender].sub(amount);
         super.withdraw(amount);
         emit Withdrawn(msg.sender, amount);

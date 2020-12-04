@@ -70,7 +70,7 @@ async function main() {
 
   console.log('\n===================================================\n');
 
-  console.log('=> RBAC\n');
+  console.log('=> RBSC\n');
 
   tx = await newBoardroom
     .connect(operator)

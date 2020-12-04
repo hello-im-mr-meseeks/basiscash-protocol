@@ -10,7 +10,7 @@ pragma solidity ^0.6.0;
 /___/ \_, //_//_/\__//_//_/\__/ \__//_/ /_\_\
      /___/
 
-* Synthetix: BASISCASHRewards.sol
+* Synthetix: BSSISCASHRewards.sol
 *
 * Docs: https://docs.synthetix.io/
 *
@@ -92,7 +92,7 @@ contract USDCWrapper {
     }
 }
 
-contract BACUSDCPool is USDCWrapper, IRewardDistributionRecipient {
+contract BSCUSDCPool is USDCWrapper, IRewardDistributionRecipient {
     IERC20 public basisCash;
     uint256 public DURATION = 5 days;
 
@@ -121,7 +121,7 @@ contract BACUSDCPool is USDCWrapper, IRewardDistributionRecipient {
     }
 
     modifier checkStart() {
-        require(block.timestamp >= starttime, 'BACUSDCPool: not start');
+        require(block.timestamp >= starttime, 'BSCUSDCPool: not start');
         _;
     }
 
@@ -168,11 +168,11 @@ contract BACUSDCPool is USDCWrapper, IRewardDistributionRecipient {
         updateReward(msg.sender)
         checkStart
     {
-        require(amount > 0, 'BACUSDCPool: Cannot stake 0');
+        require(amount > 0, 'BSCUSDCPool: Cannot stake 0');
         uint256 newDeposit = deposits[msg.sender].add(amount);
         require(
             newDeposit <= 20000e6,
-            'BACUSDCPool: deposit amount exceeds maximum 20000'
+            'BSCUSDCPool: deposit amount exceeds maximum 20000'
         );
         deposits[msg.sender] = newDeposit;
         super.stake(amount);
@@ -185,7 +185,7 @@ contract BACUSDCPool is USDCWrapper, IRewardDistributionRecipient {
         updateReward(msg.sender)
         checkStart
     {
-        require(amount > 0, 'BACUSDCPool: Cannot withdraw 0');
+        require(amount > 0, 'BSCUSDCPool: Cannot withdraw 0');
         deposits[msg.sender] = deposits[msg.sender].sub(amount);
         super.withdraw(amount);
         emit Withdrawn(msg.sender, amount);
