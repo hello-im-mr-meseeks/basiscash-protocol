@@ -10,7 +10,7 @@ pragma solidity ^0.6.0;
 /___/ \_, //_//_/\__//_//_/\__/ \__//_/ /_\_\
      /___/
 
-* Synthetix: BSSISCASHRewards.sol
+* Synthetix: BASISCASHRewards.sol
 *
 * Docs: https://docs.synthetix.io/
 *
