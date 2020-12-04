@@ -1,28 +1,28 @@
 // https://docs.basis.cash/mechanisms/yield-farming
-const INITIAL_BAC_FOR_POOLS = 50000;
-const INITIAL_BAS_FOR_DAI_BAC = 750000;
-const INITIAL_BAS_FOR_DAI_BAS = 250000;
+const INITIAL_BSC_FOR_POOLS = 50000;
+const INITIAL_BSS_FOR_DAI_BSC = 750000;
+const INITIAL_BSS_FOR_DAI_BSS = 250000;
 
-const POOL_START_DATE = Date.parse('2020-11-30T00:00:00Z') / 1000;
+const POOL_START_DATE = Date.parse('2020-12-05T00:00:00Z') / 1000;
 
 const bacPools = [
-  { contractName: 'BACDAIPool', token: 'DAI' },
-  { contractName: 'BACSUSDPool', token: 'SUSD' },
-  { contractName: 'BACUSDCPool', token: 'USDC' },
-  { contractName: 'BACUSDTPool', token: 'USDT' },
-  { contractName: 'BACyCRVPool', token: 'yCRV' },
+  { contractName: 'BSCDAIPool', token: 'DAI' },
+  { contractName: 'BSCSUSDPool', token: 'SUSD' },
+  { contractName: 'BSCUSDCPool', token: 'USDC' },
+  { contractName: 'BSCUSDTPool', token: 'USDT' },
+  { contractName: 'BSCyCRVPool', token: 'yCRV' },
 ];
 
 const basPools = {
-  DAIBAC: { contractName: 'DAIBACLPTokenSharePool', token: 'DAI_BAC-LPv2' },
-  DAIBAS: { contractName: 'DAIBASLPTokenSharePool', token: 'DAI_BAS-LPv2' },
-}
+  DAIBSC: { contractName: 'DAIBSCLPTokenSharePool', token: 'DAI_BSC-LPv2' },
+  DAIBSS: { contractName: 'DAIBSSLPTokenSharePool', token: 'DAI_BSS-LPv2' },
+};
 
 module.exports = {
   POOL_START_DATE,
-  INITIAL_BAC_FOR_POOLS,
-  INITIAL_BAS_FOR_DAI_BAC,
-  INITIAL_BAS_FOR_DAI_BAS,
+  INITIAL_BSC_FOR_POOLS,
+  INITIAL_BSS_FOR_DAI_BSC,
+  INITIAL_BSS_FOR_DAI_BSS,
   bacPools,
   basPools,
 };

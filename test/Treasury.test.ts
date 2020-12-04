@@ -211,7 +211,9 @@ describe('Treasury', () => {
       const cashPrice = await oracle.consult(cash.address, ETH);
       const treasuryReserve = await treasury.getReserve();
       const cashSupply = (await cash.totalSupply()).sub(treasuryReserve);
-      const expectedSeigniorage = cashSupply.mul(cashPrice.sub(ETH)).div(ETH);
+      const percentage = cashPrice.sub(ETH);
+      const cappedPercentage = percentage > ETH ? ETH : percentage;
+      const expectedSeigniorage = cashSupply.mul(cappedPercentage).div(ETH);
 
       const tx = await treasury.allocateSeigniorage();
       const blocktime = await latestBlocktime(provider);
@@ -238,7 +240,9 @@ describe('Treasury', () => {
       const cashPrice = await oracle.consult(cash.address, ETH);
       const treasuryReserve = await treasury.getReserve();
       const cashSupply = (await cash.totalSupply()).sub(treasuryReserve);
-      const expectedSeigniorage = cashSupply.mul(cashPrice.sub(ETH)).div(ETH);
+      const percentage = cashPrice.sub(ETH);
+      const cappedPercentage = percentage > ETH ? ETH : percentage;
+      const expectedSeigniorage = cashSupply.mul(cappedPercentage).div(ETH);
 
       const tx = await treasury.allocateSeigniorage();
       const blocktime = await latestBlocktime(provider);
